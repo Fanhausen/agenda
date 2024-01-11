@@ -1,0 +1,242 @@
+MariaDB [agendameeting]> create table meeting(
+    -> id_agenda varchar(200),
+    -> no_agenda int(50) not null auto_increment,
+    -> id_ruang varchar(100),
+    -> judul_agenda varchar(100),
+    -> id_divisi varchar(100),
+    -> waktu time,
+    -> primary key (no_agenda))
+    -> engine = innodb;
+Query OK, 0 rows affected (0.020 sec)
+
+MariaDB [agendameeting]> show tables;
++-------------------------+
+| Tables_in_agendameeting |
++-------------------------+
+| agenda                  |
+| meeting                 |
++-------------------------+
+2 rows in set (0.001 sec)
+
+MariaDB [agendameeting]> drop table agenda;
+Query OK, 0 rows affected (0.017 sec)
+
+MariaDB [agendameeting]> show tables;
++-------------------------+
+| Tables_in_agendameeting |
++-------------------------+
+| meeting                 |
++-------------------------+
+1 row in set (0.001 sec)
+
+MariaDB [agendameeting]> create table ruangan(
+    -> id_ruang varchar(100),
+    -> no_ruang int(50),
+    -> lt_ruang int(20),
+    -> primary key (id_ruang),
+    -> foreign key (id_ruang))
+    -> engine = innodb;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ')
+engine = innodb' at line 6
+MariaDB [agendameeting]> CREATE TABLE ruangan (
+    ->     id_ruang VARCHAR(100),
+    ->     no_ruang INT(50),
+    ->     lt_ruang INT(20),
+    ->     PRIMARY KEY (id_ruang)
+    -> ) ENGINE=InnoDB;
+Query OK, 0 rows affected (0.012 sec)
+
+MariaDB [agendameeting]>
+MariaDB [agendameeting]> -- Adding a foreign key reference to another table
+MariaDB [agendameeting]> ALTER TABLE ruangan
+    -> ADD CONSTRAINT fk_id_ruang
+    -> FOREIGN KEY (id_ruang) REFERENCES other_table(id_ruang);
+ERROR 1005 (HY000): Can't create table `agendameeting`.`ruangan` (errno: 150 "Foreign key constraint is incorrectly formed")
+MariaDB [agendameeting]> ALTER TABLE ruangan
+    -> ADD CONSTRAINT fk_id_ruang
+    -> FOREIGN KEY (id_ruang) REFERENCES meeting(id_ruang);
+ERROR 1005 (HY000): Can't create table `agendameeting`.`ruangan` (errno: 150 "Foreign key constraint is incorrectly formed")
+MariaDB [agendameeting]> ALTER TABLE ruangan
+    -> ADD CONSTRAINT fk_id_ruang
+    -> FOREIGN KEY (id_ruang) REFERENCES meeting(id_ruang)
+    -> ON UPDATE CASCADE
+    -> ON DELETE CASCADE;
+ERROR 1005 (HY000): Can't create table `agendameeting`.`ruangan` (errno: 150 "Foreign key constraint is incorrectly formed")
+MariaDB [agendameeting]> show tables;
++-------------------------+
+| Tables_in_agendameeting |
++-------------------------+
+| meeting                 |
+| ruangan                 |
++-------------------------+
+2 rows in set (0.001 sec)
+
+MariaDB [agendameeting]> create table waktu(
+    -> hari_dan_tanggal date,
+    -> waktu_mulai time,
+    -> waktu_selesai time,
+    -> engine = innodb;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= innodb' at line 5
+MariaDB [agendameeting]> create table waktu(
+    -> hari_dan_tanggal date,
+    -> waktu_mulai time,
+    -> waktu_selesai time)
+    -> engine = innodb;
+Query OK, 0 rows affected (0.021 sec)
+
+MariaDB [agendameeting]> show tables,
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 1
+MariaDB [agendameeting]> show tables;
++-------------------------+
+| Tables_in_agendameeting |
++-------------------------+
+| meeting                 |
+| ruangan                 |
+| waktu                   |
++-------------------------+
+3 rows in set (0.001 sec)
+
+MariaDB [agendameeting]> creata table divisi(
+    -> id_divis varchar (100),
+    -> PIC varchar (50),
+    -> nama_divisi varchar (50),
+    -> primary key(id_divisi))
+    -> engine = innodb;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'creata table divisi(
+id_divis varchar (100),
+PIC varchar (50),
+nama_divisi va...' at line 1
+MariaDB [agendameeting]> creata table divisi(
+    -> id_divisi varchar(100),
+    -> PIC varchar(50),
+    -> nama_divisi varchar(50),
+    -> primary key(id_divisi))
+    -> engine = innodb;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'creata table divisi(
+id_divisi varchar(100),
+PIC varchar(50),
+nama_divisi var...' at line 1
+MariaDB [agendameeting]> create table divisi(
+    -> id_divisi varchar(100),
+    -> PIC varchar(50),
+    -> nama_divisi varchar(50),
+    -> primary key(id_divisi))
+    -> engine = innodb;
+Query OK, 0 rows affected (0.022 sec)
+
+MariaDB [agendameeting]> show tables;
++-------------------------+
+| Tables_in_agendameeting |
++-------------------------+
+| divisi                  |
+| meeting                 |
+| ruangan                 |
+| waktu                   |
++-------------------------+
+4 rows in set (0.001 sec)
+
+MariaDB [agendameeting]> create table user(
+    -> id_user varchar(100),
+    -> username varchar(30),
+    -> email_user(50),
+    -> primary key(id_user))
+    -> engine = innodb;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(50),
+primary key(id_user))
+engine = innodb' at line 4
+MariaDB [agendameeting]> create table user(
+    -> id_user varchar(100),
+    -> username varchar(30),
+    -> email_user varchar(50),
+    -> primary key(id_user))
+    -> engine = innodb;
+Query OK, 0 rows affected (0.021 sec)
+
+MariaDB [agendameeting]> show tables;
++-------------------------+
+| Tables_in_agendameeting |
++-------------------------+
+| divisi                  |
+| meeting                 |
+| ruangan                 |
+| user                    |
+| waktu                   |
++-------------------------+
+5 rows in set (0.001 sec)
+
+MariaDB [agendameeting]> ALTER TABLE meeting
+    -> ADD CONSTRAINT fk_meeting_id_ruang
+    -> FOREIGN KEY (id_ruang) REFERENCES ruangan(id_ruang)
+    -> ON UPDATE CASCADE
+    -> ON DELETE SET NULL;
+Query OK, 0 rows affected (0.104 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [agendameeting]> alter table meeting
+    -> add id_user varchar(100);
+Query OK, 0 rows affected (0.017 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [agendameeting]> ALTER TABLE meeting
+    -> ADD CONSTRAINT fk_meeting_id_user
+    -> FOREIGN KEY (id_user) REFERENCES user(id_user)
+    -> ON UPDATE CASCADE
+    -> ON DELETE SET NULL;
+Query OK, 0 rows affected (0.091 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [agendameeting]> ALTER TABLE meeting
+    -> ADD CONSTRAINT fk_meeting_id_div
+    -> FOREIGN KEY (id_div) REFERENCES divisi(id_div)
+    -> ON UPDATE CASCADE
+    -> ON DELETE SET NULL;
+ERROR 1072 (42000): Key column 'id_div' doesn't exist in table
+MariaDB [agendameeting]> ALTER TABLE meeting
+    -> ADD CONSTRAINT fk_meeting_id_div
+    -> FOREIGN KEY (id_div) REFERENCES divisi(id_div)
+    -> ON UPDATE CASCADE
+    -> ON UPDATE CASCADE;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'UPDATE CASCADE' at line 5
+MariaDB [agendameeting]> ALTER TABLE meeting
+    -> ADD CONSTRAINT fk_meeting_id_divisi
+    -> FOREIGN KEY (id_divisi) REFERENCES divisi(id_divisi)
+    -> ON UPDATE CASCADE;
+Query OK, 0 rows affected (0.086 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [agendameeting]> ALTER TABLE meeting
+    -> ADD CONSTRAINT fk_meeting_id_div
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 2
+MariaDB [agendameeting]> ALTER TABLE meeting
+    -> ADD CONSTRAINT fk_meeting_id_divisi
+    -> FOREIGN KEY (id_divisi) REFERENCES divisi(id_divisi)
+    -> ON UPDATE CASCADE
+    -> ON DELETE SET NULL;
+ERROR 1005 (HY000): Can't create table `agendameeting`.`meeting` (errno: 121 "Duplicate key on write or update")
+MariaDB [agendameeting]> ALTER TABLE meeting
+    -> ADD CONSTRAINT fk_meeting_id_waktu
+    -> FOREIGN KEY (waktu) REFERENCES waktu(jam_mulai)
+    -> ON UPDATE CASCADE
+    -> ON DELETE SET NULL;
+ERROR 1005 (HY000): Can't create table `agendameeting`.`meeting` (errno: 150 "Foreign key constraint is incorrectly formed")
+MariaDB [agendameeting]> ALTER TABLE meeting
+    -> ADD CONSTRAINT fk_meeting_jam_mulai
+    -> FOREIGN KEY (waktu) REFERENCES waktu(jam_mulai)
+    -> ON UPDATE CASCADE
+    -> ON DELETE SET NULL;
+ERROR 1005 (HY000): Can't create table `agendameeting`.`meeting` (errno: 150 "Foreign key constraint is incorrectly formed")
+MariaDB [agendameeting]> show tables;
++-------------------------+
+| Tables_in_agendameeting |
++-------------------------+
+| divisi                  |
+| meeting                 |
+| ruangan                 |
+| user                    |
+| waktu                   |
++-------------------------+
+5 rows in set (0.001 sec)
+
+MariaDB [agendameeting]>
