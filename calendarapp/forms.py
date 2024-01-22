@@ -15,7 +15,7 @@ class EventForm(ModelForm):
             "description": forms.Textarea(
                 attrs={
                     "class": "form-control",
-                    "placeholder": "Enter event description",
+                    "placeholder": "Enter event description (divison & meeting room)",
                 }
             ),
             "start_time": DateInput(
